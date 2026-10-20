@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Movie Explorer — browse trending movies by genre, search titles, and save a watchlist." />
+  <title>Movie Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <div class="nav-inner">
+      <a class="brand" href="#home" aria-label="Movie Explorer home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <rect x="2" y="6" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2"/>
+            <path d="M8 6V26M24 6V26M2 14H30M2 20H30" stroke="currentColor" stroke-width="1.5" opacity="0.7"/>
+            <circle cx="16" cy="16" r="3.5" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="brand-name">MovieExplorer</span>
+      </a>
+
+      <div class="nav-actions">
+        <div class="search-container" id="search-container">
+          <form class="nav-search" id="nav-search-form" role="search">
+            <label class="visually-hidden" for="nav-search-input">Search movies</label>
+            <input
+              type="search"
+              id="nav-search-input"
+              name="q"
+              placeholder="Search movies…"
+              autocomplete="off"
+              enterkeyhint="search"
+              aria-autocomplete="list"
+              aria-controls="autocomplete"
+              aria-expanded="false"
+            />
+            <button type="button" class="icon-btn search-clear" id="nav-search-clear" hidden aria-label="Clear search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <button type="submit" class="btn btn-search" id="search-btn">Search</button>
+          </form>
+          <div id="autocomplete" class="autocomplete" role="listbox" hidden></div>
+        </div>
+
+        <a class="nav-link-pill" href="#watchlist">Watchlist</a>
+
+        <button type="button" class="icon-btn theme-toggle" id="theme-toggle" aria-label="Switch to light theme" title="Toggle theme">
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a7 7 0 0 0 11.5 11.5z"/></svg>
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Featured hero (upgrade over Movie Explorer) -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-backdrop" id="hero-backdrop" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-content container">
+        <div class="hero-meta" id="hero-meta">
+          <div class="skeleton skeleton-text xl" style="width:70%"></div>
+          <div class="skeleton skeleton-text" style="width:90%;margin-top:1rem"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search results (replaces browse when searching, like Movie Explorer) -->
+    <section class="section container search-section" id="search-results-section" hidden>
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="search-heading">Search results</h2>
+          <p class="section-desc" id="search-desc"></p>
+        </div>
+        <button type="button" class="btn btn-ghost" id="clear-search-panel">Back to browse</button>
+      </div>
+      <div class="movie-grid" id="search-results"></div>
+    </section>
+
+    <!-- Genre / category browse rows (Movie Explorer pattern) -->
+    <div id="browse" class="browse">
+      <!-- Rows injected by app.js from CONFIG.CATEGORIES -->
+    </div>
+
+    <!-- Watchlist (extra vs Movie Explorer) -->
+    <section class="section container" id="watchlist" aria-labelledby="watchlist-title">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="watchlist-title">My watchlist</h2>
+          <p class="section-desc">Saved on this device</p>
+        </div>
+      </div>
+      <div class="movie-grid" id="watchlist-movies"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+              <rect x="2" y="6" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2"/>
+              <circle cx="16" cy="16" r="3.5" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="brand-name">MovieExplorer</span>
+        </a>
+        <p>Browse by genre, search titles, and save what you want to watch next.</p>
+      </div>
+      <div class="footer-attrib">
+        <p>
+          This product uses the
+          <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDB</a>
+          API but is not endorsed or certified by TMDB.
+        </p>
+        <p class="tmdb-logo-wrap">
+          <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer" aria-label="The Movie Database">
+            <img
+              src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+              alt="The Movie Database"
+              class="tmdb-logo"
+              width="120"
+              height="16"
+              loading="lazy"
+            />
+          </a>
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>&copy; <span id="year"></span> Movie Explorer</p>
+    </div>
+  </footer>
+
+  <div class="modal" id="movie-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" role="document">
+      <button type="button" class="icon-btn modal-close" data-close-modal aria-label="Close details">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-relevant="additions"></div>
+
+  <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top" hidden>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
